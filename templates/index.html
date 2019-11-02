@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Upload new File</title>
+</head>
+<body>
+    <div>
+        <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible" role="alert" style="background: rgb(216, 195, 195);text-align: center;">
+                <strong>{{ message }}</strong>
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="text-align: right;"><span aria-hidden="true">&times;</span></button> -->
+                
+                </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      {% block body %}{% endblock %}
+    </div>
+    <div>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+    <input type=file name=file>
+    <input type=submit value=Upload>
+    </form>
+</div>
+</div>
+</body>   
+</html>    
