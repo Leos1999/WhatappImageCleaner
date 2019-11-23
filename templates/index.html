@@ -2,16 +2,39 @@
 <html>
 <head>
     <title>Upload new File</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+      .inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: rgb(54, 48, 48);
+    display: inline-block;
+}
+
+
+    </style>
 </head>
-<body>
+<body style="background-color: rgb(163, 226, 245);">
     <div>
-        <div>
+        <!-- <div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
           {% for message in messages %}
           <div class="alert alert-{{ category }} alert-dismissible" role="alert" style="background: rgb(216, 195, 195);text-align: center;">
                 <strong>{{ message }}</strong>
-                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="text-align: right;"><span aria-hidden="true">&times;</span></button> -->
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="text-align: right;"><span aria-hidden="true">&times;</span></button>
                 
                 </div>
           {% endfor %}
@@ -19,14 +42,29 @@
       {% endwith %}
       
       {% block body %}{% endblock %}
-    </div>
+    </div> -->
     <div>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-    <input type=file name=file>
-    <input type=submit value=Upload>
+      <h6 style="font-size: 60px; text-align: center; color: rgb(255, 0, 255); margin: 5%;">WhatsApp Cleaner</h6>
+    </div>
+    <div style="border-top-width: 20rem;">
+    <h1 style="margin-left: 100px;color: rgb(252, 0, 0);">Upload A New File</h1>
+    <form style="margin-left: 100px;margin-top: 30px;" method=post enctype=multipart/form-data>
+    <input style="align-content: center;" type=file name=file id="file" class="inputfile" >
+    <label for="file"><strong>Choose a File</strong></label>
+    <br>
+    <input style="margin-top: 30px;" class="btn btn-success" type=submit value=Upload>
+    <br>
+    <br>
+    <input style="margin-top: 30px;" class="btn btn-warning" id="predict" type=button value=Predict>
     </form>
 </div>
 </div>
+<script>
+document.getElementById("predict").onclick = function() {myFunction()};
+
+function myFunction() {
+  window.alert("The file is"+' {{result}}')
+}
+</script>
 </body>   
 </html>    
