@@ -1,1 +1,1 @@
-web: gunicorn model:Model
+web: gunicorn model:model
