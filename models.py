@@ -1,6 +1,8 @@
+#!C:/Users/Cyber/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Python 3.6/python.exe
+
 from fastai.vision import *
 import os
-from flask import Flask, flash, request, redirect, url_for,render_template
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'uploads'
@@ -10,12 +12,14 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'my unobvious secret key'
 
+
 def predict(img_name):
     path = Path()
     img = open_image(img_name)
     learn = load_learner(path)
     pred_class, pred_idx, outputs = learn.predict(img)
     return(pred_class)
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -24,7 +28,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-    result='none'
+    result = 'none'
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -39,19 +43,21 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            #return redirect(url_for('uploaded_file',filename=filename))
-            paths = 'uploads/'+filename
+            # return redirect(url_for('uploaded_file',filename=filename))
+            paths = 'uploads/' + filename
             result = predict(paths)
             print(result)
-            #flash(result)
-    return  render_template('index.html',result=result)
+            # flash(result)
+    return render_template('index.html', result=result)
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    path = 'uploads/'+filename
+    path = 'uploads/' + filename
     result = predict(path)
     print(result)
-    return render_template('results.html',result=result)
+    return render_template('results.html', result=result)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
